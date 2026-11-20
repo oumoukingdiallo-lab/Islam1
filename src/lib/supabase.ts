@@ -142,3 +142,126 @@ export interface MarketingCampaignRow {
   tracking_link: string | null;
   created_at: string;
 }
+
+export interface CustomerRow {
+  id: string;
+  store_id: string;
+  name: string;
+  phone: string;
+  email: string | null;
+  city: string | null;
+  province: string | null;
+  total_orders: number;
+  total_spent_aoa: number;
+  last_order_at: string | null;
+  created_at: string;
+}
+
+export interface PromoCodeRow {
+  id: string;
+  store_id: string;
+  code: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+  max_uses: number | null;
+  used_count: number;
+  expires_at: string | null;
+  active: boolean;
+  created_at: string;
+}
+
+export interface ProductReviewRow {
+  id: string;
+  product_id: string;
+  store_id: string;
+  customer_name: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+}
+
+export interface AdSpyItemRow {
+  id: string;
+  platform: 'tiktok' | 'facebook';
+  product_name: string;
+  ad_copy: string;
+  image_url: string;
+  category: string;
+  views_7d: number;
+  likes_7d: number;
+  shares_7d: number;
+  growth_pct: number;
+  supplier_price_aoa: number;
+  suggested_price_aoa: number;
+  delivery_days: number;
+  created_at: string;
+  first_seen: string;
+}
+
+export interface StoreSectionsRow {
+  id: string;
+  store_id: string;
+  announcement_bar: boolean;
+  hero_banner: boolean;
+  product_grid: boolean;
+  trust_badge: boolean;
+  customer_reviews: boolean;
+  faq_section: boolean;
+  whatsapp_float: boolean;
+  hero_title: string | null;
+  hero_subtitle: string | null;
+  hero_image_url: string | null;
+  updated_at: string;
+}
+
+export interface AiGenerateResult {
+  hero_subtitle?: string;
+  description?: string;
+  benefits?: { icon: string; title: string; text: string }[];
+  specs?: { key: string; value: string }[];
+  packs?: { qty: number; label: string; price: number; discount: number; badge?: string }[];
+  reviews?: { name: string; city: string; rating: number; text: string }[];
+  guarantee?: string;
+  faq?: { q: string; a: string }[];
+  variants?: string[];
+  store_name?: string;
+  tagline?: string;
+  hero_title?: string;
+  hero_subtitle?: string;
+  script?: string;
+  caption?: string;
+  hashtags?: string;
+  _source?: string;
+}
+
+export async function callAiGenerate(body: {
+  type: 'product_landing' | 'marketing_copy' | 'store_builder' | 'ad_script';
+  productName?: string;
+  productType?: 'physical' | 'digital';
+  digitalType?: string;
+  price?: number;
+  category?: string;
+  niche?: string;
+  platform?: 'whatsapp' | 'facebook' | 'tiktok';
+}): Promise<AiGenerateResult> {
+  const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-generate`;
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (anonKey) {
+    headers['Authorization'] = `Bearer ${anonKey}`;
+  }
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const errText = await res.text().catch(() => 'Erreur inconnue');
+    throw new Error(`IA: ${errText}`);
+  }
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data as AiGenerateResult;
+}

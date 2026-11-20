@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 
 export interface Route {
   // Admin pages
-  page: 'dashboard' | 'produits' | 'produits-nouveau' | 'catalogue' | 'commandes' | 'marketing' | 'boutique' | 'parametres';
+  page: 'dashboard' | 'produits' | 'produits-nouveau' | 'catalogue' | 'ad-spy' | 'commandes' | 'clients' | 'promotions' | 'marketing' | 'boutique' | 'parametres';
   productId?: string; // for edit mode
   // Public pages
-  public?: 'store' | 'product';
+  public?: 'store' | 'product' | 'tracking';
   storeSlug?: string;
   productSlug?: string;
 }
@@ -21,6 +21,9 @@ function parseHash(): Route {
   const productMatch = hash.match(/^p\/(.+)$/);
   if (productMatch) return { page: 'dashboard', public: 'product', productSlug: productMatch[1] };
 
+  // Public tracking: /suivi
+  if (hash === 'suivi') return { page: 'dashboard', public: 'tracking' };
+
   // Admin edit: /produits/modifier/:id
   const editMatch = hash.match(/^produits\/modifier\/(.+)$/);
   if (editMatch) return { page: 'produits-nouveau', productId: editMatch[1] };
@@ -29,7 +32,7 @@ function parseHash(): Route {
   if (hash === 'produits/nouveau') return { page: 'produits-nouveau' };
 
   const validPages: Route['page'][] = [
-    'dashboard', 'produits', 'produits-nouveau', 'catalogue', 'commandes', 'marketing', 'boutique', 'parametres',
+    'dashboard', 'produits', 'produits-nouveau', 'catalogue', 'ad-spy', 'commandes', 'clients', 'promotions', 'marketing', 'boutique', 'parametres',
   ];
   const topSegment = hash.split('/')[0];
   if (validPages.includes(topSegment as Route['page'])) {

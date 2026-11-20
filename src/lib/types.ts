@@ -5,7 +5,10 @@ export type PageId =
   | 'produits'
   | 'produits-nouveau'
   | 'catalogue'
+  | 'ad-spy'
   | 'commandes'
+  | 'clients'
+  | 'promotions'
   | 'marketing'
   | 'boutique'
   | 'parametres';
