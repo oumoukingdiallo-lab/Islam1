@@ -13,6 +13,10 @@ import { StoreSettingsPage } from '@/pages/StoreSettingsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { StoreFront } from '@/pages/StoreFront';
 import { ProductPage } from '@/pages/ProductPage';
+import { OrderTrackingPage } from '@/pages/OrderTrackingPage';
+import { AdSpyPage } from '@/pages/AdSpyPage';
+import { ClientsPage } from '@/pages/ClientsPage';
+import { PromotionsPage } from '@/pages/PromotionsPage';
 import { useRoute, navigate } from '@/lib/router';
 import type { PageId } from '@/lib/types';
 import { useEffect } from 'react';
@@ -33,6 +37,9 @@ function Shell() {
   }
   if (route.public === 'product' && route.productSlug) {
     return <ProductPage slug={route.productSlug} />;
+  }
+  if (route.public === 'tracking') {
+    return <OrderTrackingPage />;
   }
 
   if (loading) {
@@ -81,7 +88,10 @@ function Shell() {
             <ProductEditorPage storeId={store?.id ?? null} productId={route.productId} onDone={() => navigate('/produits')} />
           )}
           {currentPage === 'catalogue' && <CatalogPage storeId={store?.id ?? null} />}
+          {currentPage === 'ad-spy' && <AdSpyPage storeId={store?.id ?? null} />}
           {currentPage === 'commandes' && <OrdersPage storeId={store?.id ?? null} onToast={toast} />}
+          {currentPage === 'clients' && <ClientsPage storeId={store?.id ?? null} />}
+          {currentPage === 'promotions' && <PromotionsPage storeId={store?.id ?? null} />}
           {currentPage === 'marketing' && <MarketingPage storeId={store?.id ?? null} storeSlug={store?.slug ?? null} />}
           {currentPage === 'boutique' && (
             <StoreSettingsPage
