@@ -62,7 +62,7 @@ export function DashboardPage({ userName, storeId, storeSlug }: { userName: stri
   const totalRev = totalRevenue || 1;
 
   const kpis = [
-    { label: 'Chiffre d'affaires', value: formatKz(totalRevenue), icon: Wallet, tint: 'bg-brand-50 text-brand-600' },
+    { label: 'Chiffre d\'affaires', value: formatKz(totalRevenue), icon: Wallet, tint: 'bg-brand-50 text-brand-600' },
     { label: 'Bénéfice net estimé', value: formatKz(netProfit), icon: TrendingUp, tint: 'bg-blue-50 text-blue-600' },
     { label: 'Commandes totales', value: `${orders.length}`, sub: pendingCount > 0 ? `${pendingCount} à traiter` : undefined, icon: Package, tint: 'bg-violet-50 text-violet-600' },
     { label: 'Catalogue actif', value: `${publishedCount}`, sub: `${digitalProducts} digitaux · ${physicalProducts} physiques`, icon: ShoppingBag, tint: 'bg-amber-50 text-amber-600' },

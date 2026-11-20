@@ -63,7 +63,7 @@ export function CatalogPage({ storeId }: { storeId: string | null }) {
       ],
     });
     setLoading(false);
-    if (error) { toast('Erreur lors de l'importation', 'error'); return; }
+    if (error) { toast('Erreur lors de l\'importation', 'error'); return; }
     toast(`${importing.name} importé avec succès`);
     setImporting(null);
     navigate('/produits');

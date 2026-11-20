@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Sparkles, Phone } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Sparkles, Phone, MapPin } from 'lucide-react';
 import { KbzLogo } from '@/components/Logo';
 import { Spinner } from '@/lib/ui';
 import { useAuth } from '@/lib/auth';
+import { ANGOLA_PROVINCES, ANGOLA_CITIES } from '@/lib/data';
 
 export function AuthPage() {
   const { signIn, signUp } = useAuth();
@@ -14,6 +15,8 @@ export function AuthPage() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [city, setCity] = useState('');
+  const [province, setProvince] = useState('');
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +29,8 @@ export function AuthPage() {
           password,
           fullName: name,
           phone: `+244 ${phone}`,
+          city,
+          province,
         });
         if (error) setError(error);
       } else {
@@ -137,6 +142,21 @@ export function AuthPage() {
                     />
                   </div>
                 </Field>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <Field label="Province">
+                    <select value={province} onChange={(e) => setProvince(e.target.value)} className="kbz-input bg-white">
+                      <option value="">Choisir…</option>
+                      {ANGOLA_PROVINCES.map((p) => <option key={p} value={p}>{p}</option>)}
+                    </select>
+                  </Field>
+                  <Field label="Ville">
+                    <select value={city} onChange={(e) => setCity(e.target.value)} className="kbz-input bg-white">
+                      <option value="">Choisir…</option>
+                      {ANGOLA_CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                  </Field>
+                </div>
               </>
             )}
 

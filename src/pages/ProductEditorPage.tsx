@@ -145,7 +145,7 @@ export function ProductEditorPage({ storeId, productId, onDone }: { storeId: str
         setFaq([
           { q: 'Quels sont les délais de livraison ?', a: 'La livraison à Luanda prend 24-48h. Pour les autres provinces (Benguela, Huambo, Lubango...), comptez 3 à 5 jours ouvrables.' },
           { q: 'Comment se passe le paiement ?', a: 'Vous pouvez payer à la livraison (en espèces, en Kwanza) ou par transfert local. Le paiement en ligne (Multicaixa) est également disponible en mode simulation.' },
-          { q: 'Le produit est-il garanti ?', a: 'Oui, tous nos produits sont garantis 30 jours. Si vous n'êtes pas satisfait, nous vous remboursons intégralement.' },
+          { q: 'Le produit est-il garanti ?', a: 'Oui, tous nos produits sont garantis 30 jours. Si vous n\u2019êtes pas satisfait, nous vous remboursons intégralement.' },
         ]);
       } else {
         setDescription(`Découvrez **${name}** — la solution complète conçue pour vous accompagner pas à pas.\n\nCe produit digital premium vous offre un contenu structuré, facile à suivre et immédiatement applicable. Que vous soyez débutant ou déjà avancé, vous y trouverez des stratégies concrètes, des exemples pratiques et des exercices pour progresser rapidement.\n\n**Ce que vous obtenez :**\n• Un accès immédiat après paiement\n• Un format optimisé pour mobile et ordinateur\n• Des mises à jour gratuites à vie\n• Un support disponible par WhatsApp`);
@@ -322,7 +322,7 @@ export function ProductEditorPage({ storeId, productId, onDone }: { storeId: str
             <p className="text-sm text-ink-500 mb-4">Générez automatiquement toute la page de vente façon Shopify : titre marketing, bénéfices, caractéristiques, packs, avis et FAQ.</p>
             <button onClick={generateAI} disabled={aiLoading} className="bg-ink-900 hover:bg-ink-800 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition mx-auto shadow-card">
               {aiLoading ? <Spinner className="w-5 h-5" /> : <Wand2 className="w-5 h-5" />}
-              {aiLoading ? 'Génération en cours…' : 'Monter toute la page avec l'IA'}
+              {aiLoading ? 'Génération en cours…' : 'Monter toute la page avec l\u2019IA'}
             </button>
           </div>
 
